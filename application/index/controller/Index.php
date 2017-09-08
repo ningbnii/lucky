@@ -45,11 +45,35 @@ class Index
             $source = new Source($params);
             $source->save();
         }
+
         $list = Source::order('id desc')->paginate(100);
         $params['list'] = $list;
+
+        $params['forecast'] = $this->test($params['periods']);
 
         return view('index', $params);
     }
 
+    private function test($periods)
+    {
+        $source1 = Source::get(['periods'=>$periods]);
+        $source2 = Source::get(['periods'=>$periods-1]);
+        $source3 = Source::get(['periods'=>$periods-2]);
+        $arr1 = [$source1->num1, $source1->num2, $source1->num3];
+        $arr2 = [$source2->num1, $source2->num2, $source2->num3];
+        $arr3 = [$source3->num1, $source3->num2, $source3->num3];
+        $total = $arr1[0]+$arr1[2]+$arr2[2]+$arr3[0]+$arr3[2];
 
+        $arr = array_unique(array_merge($arr1, $arr2, $arr3));
+        sort($arr);
+        $comb = combination($arr,2);
+        $result = [];
+        foreach($comb as $v){
+            $sum = $v[0]+$v[1];
+            $result[] = $total - $sum;
+        }
+        $forecast = array_unique($result);
+        sort($forecast);
+        return $forecast;
+    }
 }
