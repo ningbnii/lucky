@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">期数</th>
+            <th scope="col">num1</th>
+            <th scope="col">num2</th>
+            <th scope="col">num3</th>
+            <th scope="col">结果</th>
+            <th scope="col">单/双</th>
+            <th scope="col">大/小</th>
+            <th scope="col">中/边</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr>
+            <td>{$vo.periods}</td>
+            <td>{$vo.num1}</td>
+            <td>{$vo.num2}</td>
+            <td>{$vo.num3}</td>
+            <td>{$vo.sum}</td>
+            <td {if $vo.danshuang == '单'}style="color:red;"{/if}>{$vo.danshuang}</td>
+            <td {if $vo.daxiao == '大'}style="color:red;"{/if}>{$vo.daxiao}</td>
+            <td {if $vo.zhongbian == '中'}style="color:red;"{/if}>{$vo.zhongbian}</td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    {$list->render()}
+</div>
+
+
+<script>
+    setTimeout(function () {
+        location.href = location.href;
+    }, 300000)
+</script>
+</body>
+</html>
