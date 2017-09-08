@@ -46,7 +46,7 @@ class Index
             $source->save();
         }
 
-        $list = Source::order('id desc')->paginate(100);
+        $list = Source::order('id desc')->limit(10)->select();
         $params['list'] = $list;
 
         $params['forecast'] = $this->test($params['periods']);
@@ -62,7 +62,7 @@ class Index
         $arr1 = [$source1->num1, $source1->num2, $source1->num3];
         $arr2 = [$source2->num1, $source2->num2, $source2->num3];
         $arr3 = [$source3->num1, $source3->num2, $source3->num3];
-        $total = $arr1[0]+$arr1[2]+$arr2[2]+$arr3[0]+$arr3[2];
+        $total = $arr1[0]+$arr1[2]+$arr2[2]*2+$arr3[0]+$arr3[2];
 
         $arr = array_unique(array_merge($arr1, $arr2, $arr3));
         sort($arr);
